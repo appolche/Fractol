@@ -14,3 +14,6 @@ int	ft_strcmp(const char *dst, const char *src)
 	}
 	return (*s1 - *s2);
 }
+/*
+double imabs = sqrt(x * x + y * y);
+ my_mlx_pixel_put(stuff, column, row, 0x00FF0000/imabs * 100);*/

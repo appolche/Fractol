@@ -6,8 +6,12 @@
 #include "./mlx/mlx.h"
 #include <stdlib.h>
 
-# define WIDTH 		620
-# define HEIGHT		480
+# define WIDTH 		1024
+# define HEIGHT		768
+
+# define MAX_ITERATION	100
+
+//добавить в make флаг -Ofast
 
 typedef struct	s_data {
     void	*mlx_ptr;
@@ -20,18 +24,9 @@ typedef struct	s_data {
 	int		fractal;
 }				t_data;
 
-/*
-typedef struct	s_data
-{
-	void		*mlx_ptr;
-	void		*win_ptr;
-	int			fractal;
-	int			color;
-	int			width;
-	int			height;
-}				t_data;
-*/
-
 int	ft_strcmp(const char *dst, const char *src);
+void draw_mandelbrot (t_data *data);
+void my_mlx_pixel_put(t_data *data, int x, int y, int colour);
+int ft_close(int keycode, t_data *data);
 
 #endif
