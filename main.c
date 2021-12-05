@@ -1,5 +1,18 @@
 #include "fractol.h"
 
+/*static int init_fractal_parameters(char **argv)
+{
+    int parameter;
+
+    parameter = 0;
+	if (ft_strisdigit(argv[2]) && ft_strisdigit(argv[3]))
+    {
+		parameter = ft_atoi(argv[2]);
+    }
+	else
+		return(parameter);
+}*/
+
 static int  fractal_name(char *str)
 {
     int fractal_number;
@@ -27,7 +40,20 @@ int data_init(t_data *data, char *argv)
     if (data->addr_ptr == NULL)
         return (0);
     data->fractal = fractal_name(argv);
+    data->x_pos = WIDTH / 2;
+	data->y_pos = HEIGHT / 2;
     return (1);
+}
+
+int	mouse_hooks(int keycode, int x, int y, t_data *data)
+{
+	if (keycode == MOUSE_UP_SCROLL)
+    //if (keycode == 5 || keycode == 1)
+		zoom_in(x, y, data);
+	if (keycode == MOUSE_DOWN_SCROLL)
+    //else if (keycode == 4 || keycode == 2)
+		zoom_out(x, y, data);
+	return (0);
 }
 
 int main(int argc, char **argv)
@@ -45,9 +71,11 @@ int main(int argc, char **argv)
             return (0);
         }
         if (data->fractal == 1)
-            draw_mandelbrot(data);
+            fractal_drawing(data);
         mlx_put_image_to_window(data->mlx_ptr, data->window_ptr, data->img_ptr, 0, 0);
         mlx_hook(data->window_ptr, 2, 1L << 0, ft_close, data);
+        mlx_mouse_hook(data->window_ptr, mouse_hooks, data);
+        //mlx_key_hook(matrix_map->win_ptr, get_event, matrix_map);
         mlx_loop(data->mlx_ptr);
     }
     else
