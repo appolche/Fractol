@@ -1,4 +1,5 @@
 #include "fractol.h"
+#include <stdio.h>
 
 void my_mlx_pixel_put(t_data *data, int x, int y, int colour)
 {
@@ -8,54 +9,60 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int colour)
     *(unsigned int *)dst = colour;
 }
 
-//вытащить цикл
-//вытащить отрисовку
-//оставить в манделе только вычисления
-void fractal_drawing(t_data *data)
+void color_filling(t_data *data, int iteration, int column, int row)
 {
-    double column = 0;
-    double row = 0;
-    int iteration = 0;
-
-    while (row < HEIGHT)
-    {
-        column = 0;
-        while (column < WIDTH)
-        {
-            iteration = mandelbrot(data, column, row);
-            if (iteration >= MAX_ITERATION)
-                my_mlx_pixel_put(data, column, row, 0x00FFFFFF);
-            else
-                my_mlx_pixel_put(data, column, row, 0x000000FF * iteration / 10);
-            column++;
-        }
-        row++;
-    }
+    if (iteration >= MAX_ITERATION)
+        my_mlx_pixel_put(data, column, row, 0x00FFFFFF);
+    else
+        my_mlx_pixel_put(data, column, row, 0x000000FF * iteration / 10);
 }
 
 int mandelbrot(t_data *data, int column, int row)
 {
-    double x = 0, y = 0;
-    int iteration = 0;
-    // my_mlx_pixel_put(data, column, row, 0x000000FF + iteration++ % 256 ); GRADIENT
+    double x;
+    double y;
+    double x_re;
+    double y_im;
+    double x_tmp;
+    int iteration;
+
     //  Convert pixel coordinate to complex number
-    double c_re = (column - WIDTH / 2.0) * 4.0 / WIDTH; // подгон картинки под радиус 2 вне зависимости от рамзера окна //x
-    double c_im = (row - HEIGHT / 2.0) * 4.0 / WIDTH;   // y
+    x_re = ((column + data->x_offset * data->zoom) / data->zoom - WIDTH / 2.0) * 4 / WIDTH; // -0.5 - смещение вправо подгон картинки ///под радиус 2 вне зависимости от рамзера окна //x
+    y_im = ((row + data->y_offset * data->zoom) / data->zoom - HEIGHT / 2.0) * 4 / WIDTH;   // +0,5 смещение вверх (y)
     x = 0;
     y = 0;
     iteration = 0;
     while (x * x + y * y <= 4 && iteration < MAX_ITERATION)
     {
-        double x_new = x * x - y * y + c_re;
-        y = 2 * x * y + c_im;
-        x = x_new;
+        x_tmp = x * x - y * y + x_re;
+        y = 2.0 * x * y + y_im;
+        x = x_tmp;
         iteration++;
     }
-    return(iteration);
+    return (iteration);
 }
 
+void fractal_drawing(t_data *data)
+{
+    double column;
+    double row;
+    int iteration;
 
-	//if (key == MOUSE_UP_SCRLL)
-	//	zoom_in(x, y, f);
-	//if (key == MOUSE_DOWN_SCRLL)
-	//	zoom_out(x, y, f);
+    row = 0;
+    iteration = 0;
+    while (row < HEIGHT)
+    {
+        column = 0;
+        while (column < WIDTH)
+        {
+            if (data->fractal == 1)
+                iteration = mandelbrot(data, column, row);
+            else if (data->fractal == 2)
+                iteration = mandelbrot(data, column, row); // change to Julia
+            color_filling(data, iteration, column, row);
+            column++;
+        }
+        row++;
+    }
+    mlx_put_image_to_window(data->mlx_ptr, data->window_ptr, data->img_ptr, 0, 0);
+}
