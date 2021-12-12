@@ -46,10 +46,8 @@ typedef struct	s_data {
 	int		line_length;
 	int		endian;
 	int		fractal;
-	double			x_mouse_pos;
-	double			y_mouse_pos;
-	double			x;
-	double			y;
+	double			x_pixel;
+	double			y_pixel;
 	double			zoom;
 	int			x_offset;
 	int			y_offset;
@@ -60,6 +58,7 @@ int	ft_strcmp(const char *dst, const char *src);
 int data_init(t_data *data, char *argv);
 void fractal_drawing(t_data *data);
 int mandelbrot(t_data *data, int column, int row);
+int julia(t_data *data, int column, int row);
 //add Julia_func
 void color_filling(t_data *data, int iteration, int column, int row);
 void my_mlx_pixel_put(t_data *data, int x, int y, int colour);

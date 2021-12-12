@@ -9,6 +9,8 @@ static int  fractal_type(char *str)
 		fractal_number = 1;
 	else if (ft_strcmp(str, "julia") == 0)
 		fractal_number = 2;
+    else if (ft_strcmp(str, "serp") == 0)
+		fractal_number = 3;
 	return (fractal_number);
 }
 
@@ -30,6 +32,8 @@ int data_init(t_data *data, char *argv)
     data->zoom = 1.0;
     data->x_offset = 0;
     data->y_offset = 0;
+    data->x_pixel = 0.0;
+    data->y_pixel = 0.0;
     return (1);
 }
 
@@ -48,7 +52,7 @@ int main(int argc, char **argv)
             return (0);
         }
         fractal_drawing(data);
-        mlx_hook(data->window_ptr, 2, 1L << 0, key_pressed, data);
+        mlx_key_hook(data->window_ptr, key_pressed, data);
         mlx_mouse_hook(data->window_ptr, mouse_hooks, data);
         mlx_hook(data->window_ptr, 2, 1L << 0, ft_close, data);
         //mlx_key_hook(matrix_map->win_ptr, get_event, matrix_map);

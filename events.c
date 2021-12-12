@@ -10,7 +10,7 @@ int	key_pressed(int keycode, t_data *data)
 		data->x_offset -= MOVE_OFFSET;
 	else if (keycode == RIGHT)
 		data->x_offset += MOVE_OFFSET;
-	//mlx_clear_window(data->mlx_ptr, data->window_ptr);
+	mlx_clear_window(data->mlx_ptr, data->window_ptr);
 	//mlx_destroy_image(data->mlx_ptr, data->img_ptr);
 	fractal_drawing(data);
 	return (0);
