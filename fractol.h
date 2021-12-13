@@ -1,8 +1,9 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-#include <unistd.h>
-#include <math.h>
+#include <unistd.h> ////
+#include <stdio.h>
+///#include <math.h>
 #include "./mlx/mlx.h"
 #include <stdlib.h>
 
@@ -17,25 +18,18 @@
 # define LEFT 123
 # define RIGHT 124
 # define SPACE 124
-/*# define ARROW_UP 126
-# define ARROW_DOWN 125
-# define ARROW_LEFT 123
-# define ARROW_RIGHT 124
-# define KEY_ENTER 36
-# define MOUSE_LEFT_CLK		(0x01)
-# define MOUSE_RIGHT_CLK	(0x02)
-# define MOUSE_MIDDLE_CLK	(0x03)*/
+
+# define ONE 18
+# define TWO 19
+# define THREE 20
 
 # define MOUSE_UP_SCROLL	4
 # define MOUSE_DOWN_SCROLL	5
 # define MOUSE_CLICK_L 1
 # define MOUSE_CLICK_R 2
 
-
 # define MOVE_OFFSET 10
-# define ZOOM_OFFSET 1.25
-
-//добавить в make флаг -Ofast
+# define ZOOM_OFFSET 1.111
 
 typedef struct	s_data {
     void	*mlx_ptr;
@@ -51,24 +45,34 @@ typedef struct	s_data {
 	double			zoom;
 	int			x_offset;
 	int			y_offset;
+	double		julia_x;
+	double		julia_y;
+	int			color_shift;
 }				t_data;
 
-static int fractal_type(char *str);
-int	ft_strcmp(const char *dst, const char *src);
-int data_init(t_data *data, char *argv);
+
+int data_init(t_data *data, int argc, char **argv);
+
 void fractal_drawing(t_data *data);
-int mandelbrot(t_data *data, int column, int row);
-int julia(t_data *data, int column, int row);
-//add Julia_func
 void color_filling(t_data *data, int iteration, int column, int row);
 void my_mlx_pixel_put(t_data *data, int x, int y, int colour);
+void change_color(int keycode, t_data *data);
+
+int mandelbrot(t_data *data, int column, int row);
+int julia(t_data *data, int column, int row);
+int	serpinskiy(int x, int y);
+
 int ft_close(int keycode, t_data *data);
 int mouse_hooks(int keycode, int x, int y, t_data *data);
 int	key_pressed(int keycode, t_data *data);
-void next_draw(t_data *data);
-//add free_func
 
+int  fractal_type(char *str);
+void print_parameters_list(void);
+void print_moving_tips(void);
 
-//add show_manual();
+double ft_atod(const char *str);
+int is_double_number(char *str);
+int ft_isdigit(int c);
+int	ft_strcmp(const char *dst, const char *src);
 
 #endif

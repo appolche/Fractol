@@ -36,24 +36,22 @@ int julia(t_data *data, int column, int row)
     double x_tmp;
     int iteration;
 
-    //  Convert pixel coordinate to complex number
     x_re = ((column + data->x_offset * data->zoom) / data->zoom  - WIDTH / 2.0) * 4 / WIDTH + data->x_pixel; // -0.5 - смещение вправо подгон картинки ///под радиус 2 вне зависимости от рамзера окна //x
     y_im = ((row + data->y_offset * data->zoom) / data->zoom - HEIGHT / 2.0) * 4 / WIDTH + data->y_pixel;   // +0,5 смещение вверх (y)
-    //printf("x_re: %f y_im: %f\n", x_re, y_im);
     x = x_re;
     y = y_im;
     iteration = 0;
     while (x * x + y * y <= 4.0 && iteration < MAX_ITERATION)
     {
-        x_tmp = x * x - y * y - 0.7;
-        y = 2.0 * x * y - 0.3;
+        x_tmp = x * x - y * y + data->julia_x;
+        y = 2.0 * x * y + data->julia_y;
         x = x_tmp;
         iteration++;
     }
     return (iteration);
 }
 
-int		sierpinski_carpet(t_data *data, int x, int y)
+int		serpinskiy(int x, int y)
 {
 	int i;
 
@@ -62,10 +60,10 @@ int		sierpinski_carpet(t_data *data, int x, int y)
 	y *= ZOOM_OFFSET;
 	while (i < MAX_ITERATION)
 	{
-		if ((x % 3 == 1) && (y % 3 == 1))
+		if ((x % 2 == 1) && (y % 2 == 1))
 			return (0);
-		x /= 3;
-		y /= 3;
+		x /= 2;
+		y /= 2;
 		i++;
 	}
 	return (20);
@@ -89,7 +87,7 @@ void fractal_drawing(t_data *data)
             else if (data->fractal == 2)
                 iteration = julia(data, column, row);
             else if (data->fractal == 3)
-                iteration = sierpinski_carpet(data, column, row);
+                iteration = serpinskiy(column, row);
             color_filling(data, iteration, column, row);
             column++;
         }

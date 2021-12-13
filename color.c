@@ -9,9 +9,46 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int colour)
 }
 
 void color_filling(t_data *data, int iteration, int column, int row)
+{   
+
+
+
+    if (data->color_shift == 0)
+    {
+        if (iteration >= MAX_ITERATION)
+            my_mlx_pixel_put(data, column, row, 0xFFFFFF);
+        else
+            my_mlx_pixel_put(data, column, row, 0x0000FF * iteration / 10);
+    }
+    if (data->color_shift == 1)
+    {
+        if (iteration >= MAX_ITERATION)
+            my_mlx_pixel_put(data, column, row, 0xffefd5);
+        else
+            my_mlx_pixel_put(data, column, row, 0x483d8b * iteration / 10);
+    }
+    if (data->color_shift == 2)
+    {
+        if (iteration >= MAX_ITERATION)
+            my_mlx_pixel_put(data, column, row, 0xf0fff0);
+        else
+            my_mlx_pixel_put(data, column, row, 0xffebcd * iteration / 10);
+    }
+    if (data->color_shift == 3)
+    {
+        if (iteration >= MAX_ITERATION)
+            my_mlx_pixel_put(data, column, row, 0xe6e6fa);
+        else
+            my_mlx_pixel_put(data, column, row, 0x8b4513 * iteration / 10);
+    }
+}
+
+void change_color(int keycode, t_data *data)
 {
-    if (iteration >= MAX_ITERATION)
-        my_mlx_pixel_put(data, column, row, 0x00FFFFFF);
-    else
-        my_mlx_pixel_put(data, column, row, 0x000000FF * iteration / 10);
+    if (keycode == ONE)
+        data->color_shift = 1;
+    if (keycode == TWO)
+        data->color_shift = 2;
+    if (keycode == THREE)
+        data->color_shift = 3;
 }
