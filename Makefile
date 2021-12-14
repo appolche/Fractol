@@ -7,6 +7,7 @@ HEADER		=	fractol.h
 MLX_HEADER  =   $(addprefix $(MLX_DIR)/, mlx_int.h mlx_new_window.h mlx_opengl.h mlx_png.h mlx.h)
 
 SRCS		= 	main.c\
+				init.c\
 				utils.c \
 				fractal.c\
 				color.c\

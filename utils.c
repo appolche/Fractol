@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dleaves <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/14 22:45:18 by dleaves           #+#    #+#             */
+/*   Updated: 2021/12/14 23:08:10 by dleaves          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-int ft_strcmp(const char *dst, const char *src)
+int	ft_strcmp(const char *dst, const char *src)
 {
-	unsigned char *s1;
-	unsigned char *s2;
+	unsigned char	*s1;
+	unsigned char	*s2;
 
 	s1 = (unsigned char *)dst;
 	s2 = (unsigned char *)src;
@@ -15,7 +27,7 @@ int ft_strcmp(const char *dst, const char *src)
 	return (*s1 - *s2);
 }
 
-int ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= 48 && c <= 57)
 		return (1);
@@ -23,13 +35,13 @@ int ft_isdigit(int c)
 		return (0);
 }
 
-int is_double_number(char *str)
+int	ft_is_number(char *str)
 {
-	int i;
-	int dot;
+	int	i;
+	int	dot;
 
 	if (!str)
-		return (0);
+		return (1);
 	i = 0;
 	dot = 0;
 	if (str[i] == '-' || str[i] == '+')
@@ -44,28 +56,36 @@ int is_double_number(char *str)
 			i++;
 		}
 		else
-			return (0);
+			return (1);
 	}
-	return (1);
+	return (0);
 }
 
-double ft_atod(const char *str)
+int	ft_find_sign(char *str, int sign)
 {
-	double result;
-	int sign;
-	int n;
-
-	n = 10;
-	while (*str == ' ' || *str == '\t' || *str == '\r' || *str == '\n' || *str == '\v' || *str == '\f')
-		str++;
-	result = 0;
-	sign = 1;
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
 			sign = -1;
-		str++;
 	}
+	return (sign);
+}
+
+double	ft_atod(char *str)
+{
+	double	result;
+	int		sign;
+	int		n;
+
+	result = 0;
+	sign = 1;
+	n = 10;
+	while (*str == ' ' || *str == '\t' || *str == '\r' || *str == '\n'
+		|| *str == '\v' || *str == '\f')
+		str++;
+	sign = ft_find_sign(str, sign);
+	if (sign == -1)
+		str++;
 	while (*str >= '0' && *str <= '9')
 		result = (result * 10) + (*str++ - '0');
 	if (*str++ == '.')
