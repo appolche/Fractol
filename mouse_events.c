@@ -16,16 +16,16 @@ int	mouse_hooks(int keycode, int x, int y, t_data *data)
 {
 	if (keycode == MOUSE_UP_SCROLL)
 		data->zoom *= ZOOM_OFFSET;
-	if (keycode == MOUSE_DOWN_SCROLL)
-		data->zoom *= ZOOM_OFFSET;
-	if (keycode == MOUSE_CLICK_L)
+	else if (keycode == MOUSE_DOWN_SCROLL)
+		data->zoom /= ZOOM_OFFSET;
+	else if (keycode == MOUSE_CLICK_L)
 	{
 		data->zoom *= ZOOM_OFFSET;
 		mlx_mouse_get_pos(data->window_ptr, &x, &y);
 		data->x_pixel = (x - WIDTH / 2.0) * 4 / WIDTH;
 		data->y_pixel = (y - HEIGHT / 2.0) * 4 / WIDTH;
 	}
-	if (keycode == MOUSE_CLICK_R)
+	else if (keycode == MOUSE_CLICK_R)
 	{
 		data->zoom /= ZOOM_OFFSET;
 		mlx_mouse_get_pos(data->window_ptr, &x, &y);

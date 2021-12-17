@@ -37,13 +37,13 @@ void	change_color(int keycode, t_data *data)
 		data->front_color = 0xffefd5;
 		data->back_color = 0x483d8b;
 	}
-	if (keycode == TWO)
+	else if (keycode == TWO)
 	{
 		data->color_shift = 2;
 		data->front_color = 0xf0fff0;
 		data->back_color = 0xffebcd;
 	}
-	if (keycode == THREE)
+	else if (keycode == THREE)
 	{
 		data->color_shift = 3;
 		data->front_color = 0xe6e6fa;

@@ -6,7 +6,7 @@
 /*   By: dleaves <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 22:39:38 by dleaves           #+#    #+#             */
-/*   Updated: 2021/12/14 22:42:11 by dleaves          ###   ########.fr       */
+/*   Updated: 2021/12/16 22:21:28 by dleaves          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	fractal_drawing(t_data *data);
 
 int		mandelbrot(t_data *data, int row, int column);
 int		julia(t_data *data, int row, int column);
-int		serpinskiy(int row, int column);
+int		serpinskiy(t_data *data, int row, int column);
 
 void	change_color(int keycode, t_data *data);
 void	color_filling(t_data *data, int iteration, int column, int row);
@@ -80,6 +80,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int colour);
 int		ft_close(int keycode, t_data *data);
 int		mouse_hooks(int keycode, int x, int y, t_data *data);
 int		key_pressed(int keycode, t_data *data);
+int		keys(int keycode, t_data *data);
 
 int		fractal_type(char *str);
 void	print_parameters_list(void);

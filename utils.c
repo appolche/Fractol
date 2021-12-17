@@ -48,17 +48,16 @@ int	ft_is_number(char *str)
 		i++;
 	while (str[i])
 	{
-		while (ft_isdigit(str[i]) && str[i])
-			i++;
-		if (str[i] == '.' && dot <= 1)
+		if (!ft_isdigit(str[i]))
 		{
-			dot++;
-			i++;
+			if (str[i] == '.' && dot < 1)
+				dot++;
+			else
+				return (0);
 		}
-		else
-			return (1);
+		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	ft_find_sign(char *str, int sign)

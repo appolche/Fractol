@@ -14,18 +14,18 @@
 
 void	print_moving_tips(void)
 {
-	printf("MOVE: up || down || left || right\n");
-	printf("ZOOM: mouse wheel || mouse click (left || right)\n");
-	printf("CHANGE COLOR : 1 || 2 || 3\n");
-	printf("EXIT: esc\n");
+	printf("\nMOVE: up || down || left || right\n");
+	printf("\nZOOM: mouse wheel || mouse click (left || right)\n");
+	printf("\nCHANGE COLOR : 1 || 2 || 3\n");
+	printf("\nEXIT: esc\n");
 }
 
 void	print_parameters_list(void)
 {
 	printf("\nPlease add a fractal name:\n");
-	printf("1: mandelbrot\n");
-	printf("2: julia\n");
-	printf("3: serpinskiy\n");
+	printf("\n1: MANDELBROT\n");
+	printf("\n2: JULIA\n");
+	printf("\n3: SERPINSKIY\n\n");
 }
 
 int	main(int argc, char **argv)

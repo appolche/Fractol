@@ -17,11 +17,11 @@ int	fractal_type(char *str)
 	int	fractal_number;
 
 	fractal_number = 0;
-	if (ft_strcmp(str, "mandelbrot") == 0)
+	if (ft_strcmp(str, "MANDELBROT") == 0)
 		fractal_number = 1;
-	else if (ft_strcmp(str, "julia") == 0)
+	else if (ft_strcmp(str, "JULIA") == 0)
 		fractal_number = 2;
-	else if (ft_strcmp(str, "serpinskiy") == 0)
+	else if (ft_strcmp(str, "SERPINSKIY") == 0)
 		fractal_number = 3;
 	return (fractal_number);
 }
